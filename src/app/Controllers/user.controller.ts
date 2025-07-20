@@ -1,8 +1,9 @@
 import  express, { Request, Response }  from "express";
-import { Note } from "../models/notes.model";
-export const notesRoutes=express.Router()
 
-notesRoutes.post('/create-note',async(req:Request,res:Response)=>{
+import { User } from "../models/user.model";
+export const userRoutes=express.Router()
+
+userRoutes.post('/create-user',async(req:Request,res:Response)=>{
     const body=req.body;
     // const myNote=new Note({
     //     title:"Learning Mongoose",
@@ -11,58 +12,58 @@ notesRoutes.post('/create-note',async(req:Request,res:Response)=>{
     // })
     // await myNote.save()
 
-    const note=await Note.create(body)
+    const  user=await User.create(body)
     res.status(201).json({
         success:true,
         message:"Note created successfully",
-        note
+         user
     })
 
 })
-notesRoutes.get('/',async(req:Request,res:Response)=>{
+userRoutes.get('/',async(req:Request,res:Response)=>{
     
 
-   const notes=await Note.find()
+   const  user=await User.find()
     res.status(201).json({
         success:true,
         message:"Note created successfully",
-        notes
+         user
     })
 
 })
 
-notesRoutes.get('/notes/:noteId',async(req:Request,res:Response)=>{
+userRoutes.get('/user/:userId',async(req:Request,res:Response)=>{
     
-   const noteId=req.params.noteId;
-   const note=await Note.findById(noteId)
+   const userId=req.params.noteId;
+   const  user=await User.findById(userId)
     res.status(201).json({
         success:true,
         message:"All Note Show successfully",
-        note
+        user
     })
 
 })
 
-notesRoutes.patch('/notes/:noteId',async(req:Request,res:Response)=>{
+userRoutes.patch('/user/:userId',async(req:Request,res:Response)=>{
     
-   const noteId=req.params.noteId;
+   const userId=req.params.noteId;
    const updatedBody=req.body;
-   const note=await Note.findByIdAndUpdate(noteId,updatedBody,{new:true})
+   const  user=await User.findByIdAndUpdate(userId,updatedBody,{new:true})
 
   
     res.status(201).json({
         success:true,
         message:"Note updated successfully",
-        note
+        user
     })
 
 })
 
-notesRoutes.delete('/notes/:noteId',async(req:Request,res:Response)=>{
+userRoutes.delete('/user/:userId',async(req:Request,res:Response)=>{
     
-   const noteId=req.params.noteId;
+   const userId=req.params.noteId;
    const updatedBody=req.body;
-   const note=await Note.findByIdAndDelete(noteId)
+   const note=await User.findByIdAndDelete(userId)
 
   
     res.status(201).json({

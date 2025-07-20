@@ -5,7 +5,9 @@ const userSchema=new Schema<IUser>({
     firstName:{
         type:String,
         required:true,
-        trim:true
+        trim:true,
+        minlength:4,
+        maxlength:10
     },
     lastName:{
         type:String,
@@ -15,7 +17,15 @@ const userSchema=new Schema<IUser>({
      email:{
         type:String,
         required:true,
-        trim:true
+        trim:true,
+        lowercase:true
+    },
+    age:{
+      type:Number,
+      required:true,
+      min:18,
+      max:60
+
     },
     password:{
         type:String,
@@ -24,7 +34,8 @@ const userSchema=new Schema<IUser>({
     },
     role:{
         type:String,
-        enum:['user','admin'],
+        uppercase:true,
+        enum:['user','admin','USER','ADMIN'],
         default:'user'
     }
 
