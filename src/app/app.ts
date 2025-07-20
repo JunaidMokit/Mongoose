@@ -63,7 +63,7 @@ app.get('/notes/:noteId',async(req:Request,res:Response)=>{
    const note=await Note.findById(noteId)
     res.status(201).json({
         success:true,
-        message:"Note created successfully",
+        message:"All Note Show successfully",
         note
     })
 
