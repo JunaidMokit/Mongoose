@@ -30,11 +30,17 @@ userRoutes.post('/create-user',async(req:Request,res:Response)=>{
     // const password=await bcrypt.hash(body.password,10)
     // console.log(password)
 
-    const user=new User(body)
-     const password=await user.hashpassword(body.password)
-     user.password=password;
-    await user.save();
+    // const user=new User(body)
+    //  const password=await user.hashpassword(body.password)
+    //  user.password=password;
+    // await user.save();
 
+    // const password=await User.hashPassword(body.password)
+     const password = await User.hashPassword(body.password)
+    console.log(password,"Static")
+    body.password=password
+    const user=await User.create(body)
+  
     res.status(201).json({
         success:true,
         message:"Note created successfully",
@@ -101,11 +107,13 @@ userRoutes.patch('/user/:userId',async(req:Request,res:Response)=>{
 
 })
 
-userRoutes.delete('/user/:userId',async(req:Request,res:Response)=>{
+userRoutes.delete('/:userId',async(req:Request,res:Response)=>{
     
-   const userId=req.params.noteId;
+   const userId=req.params.userId;
    const updatedBody=req.body;
-   const note=await User.findByIdAndDelete(userId)
+   //const note=await User.findByIdAndDelete(userId)
+
+    const note=await User.findOneAndDelete({_id: userId})
 
   
     res.status(201).json({
