@@ -4,5 +4,10 @@ export interface IUser{
     email:string,
     age:number,
     password:string,
-    role:'user'|'admin'
+    role:'user'|'admin',
+    address:{
+        city:string,
+        street:string,
+        zip:number
+    }
 }

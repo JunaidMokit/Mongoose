@@ -1,6 +1,16 @@
 import { model, Schema } from "mongoose";
-import { IUser } from "../../interfaces/user.interface";
+import { IAddresss, IUser } from "../../interfaces/user.interface";
 
+
+export const addressSchema=new Schema<IAddresss>({
+    city:{type:String},
+        street:{type:String},
+        zip:{type:Number}
+
+},
+{
+ _id:false
+})
 const userSchema=new Schema<IUser>({
     firstName:{
         type:String,
@@ -23,7 +33,7 @@ const userSchema=new Schema<IUser>({
     age:{
       type:Number,
       required:true,
-      min:18,
+      min: [18, 'Must be at least 18, got {VALUE}'],
       max:60
 
     },
@@ -35,10 +45,20 @@ const userSchema=new Schema<IUser>({
     role:{
         type:String,
         uppercase:true,
-        enum:['user','admin','USER','ADMIN'],
+        enum:{
+          values:['user','admin','USER','ADMIN'],
+          message:"Role is not valid. got {VALUE} ROLE"
+        },
         default:'user'
+    },
+    address: {
+        type:addressSchema
+
     }
 
+},{
+    versionKey:false,
+    timestamps:true
 })
 
 export const User=model("User",userSchema)
