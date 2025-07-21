@@ -1,9 +1,15 @@
 import  express, { Request, Response }  from "express";
 import { Note } from "../models/notes.model";
+import bcrypt from 'bcryptjs'
+
+
 export const notesRoutes=express.Router()
+
 
 notesRoutes.post('/create-note',async(req:Request,res:Response)=>{
     const body=req.body;
+    const password=await bcrypt.hash(body.password,"10")
+    console.log(password)
     // const myNote=new Note({
     //     title:"Learning Mongoose",
     //     content:"I am learning mongoose"

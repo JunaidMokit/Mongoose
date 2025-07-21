@@ -1,3 +1,8 @@
+export interface IAddresss{
+    city:string,
+    street:string,
+    zip:number,
+}
 export interface IUser{
     firstName:string,
     lastName:string,
@@ -5,9 +10,9 @@ export interface IUser{
     age:number,
     password:string,
     role:'user'|'admin',
-    address:{
-        city:string,
-        street:string,
-        zip:number
-    }
+    address:IAddresss
+}
+
+export interface UserInstanceMethods{
+    hashpassword(password:string):string
 }
